@@ -50,7 +50,7 @@ let s:perl_project_root_files = ['.git', '.gitmodules', 'Makefile.PL', 'Build.PL
 let s:perl_lib_dirs = ['lib', 'extlib', 'local/lib/perl5', 'local/lib/perl5/'.s:archname]
 
 function! perl_local_lib_path#add_perl_paths(perl_paths)
-  let root_path = s:find_root_directory(getcwd(), s:perl_project_root_files)
+  let root_path = s:find_root_directory(getcwd().'/', s:perl_project_root_files)
 
   let perl_lib_dirs = copy(s:perl_lib_dirs)
   call extend(perl_lib_dirs, a:perl_paths)
