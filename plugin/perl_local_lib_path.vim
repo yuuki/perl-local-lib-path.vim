@@ -34,9 +34,6 @@ if !exists('g:perl_local_lib_path')
 endif
 
 function! s:add_paths()
-  if exists('g:did_perl_local_lib_path')
-    return
-  end
   let g:did_perl_local_lib_path = 1
 
   call perl_local_lib_path#add_perl_paths(split(g:perl_local_lib_path, ','))
