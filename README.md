@@ -13,6 +13,10 @@ use parent qw(Hatena*::Mackerel::Model);
 ```
 * is a cursor position and type 'gf'.
 
+## Requirements
+
+- unite.vim
+
 ## Usage
 
 You can set your paths via g:perl_local_lib_path. perl-local-lib-paths has 'lib', 'extlib', 'local/lib/perl5', 'local/lib/perl5/${archname}'.
