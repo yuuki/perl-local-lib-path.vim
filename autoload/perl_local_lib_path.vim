@@ -58,7 +58,7 @@ function! perl_local_lib_path#add_perl_paths(perl_paths)
   let inc_paths = s:uniq(map(perl_lib_dirs, 'simplify(root_path . "/" . v:val)'))
   let original_paths = split(&path, ',')
   call extend(inc_paths, original_paths)
-  let path_str = join(s:uniq(inc_paths), ',')
+  let path_str = join(inc_paths, ',')
   execute "set path=".path_str
 endfunction
 
