@@ -41,10 +41,6 @@ function! s:find_root_directory(current_dir, project_root_files)
   return s:find_root_directory(simplify(a:current_dir.'/../'), a:project_root_files)  " go up directory
 endfunction
 
-function! s:uniq(list)
-  return filter(copy(a:list), 'count(a:list, v:val) != 0')
-endfunction
-
 let s:archname = unite#util#system('perl -MConfig -e '."'".'print $Config{archname}'."'")
 let s:perl_project_root_files = ['.git', '.gitmodules', 'Makefile.PL', 'Build.PL']
 let s:perl_lib_dirs = ['lib', 'extlib', 'local/lib/perl5', 'local/lib/perl5/'.s:archname]
@@ -55,11 +51,14 @@ function! perl_local_lib_path#add_perl_paths(perl_paths)
 
   let perl_lib_dirs = copy(s:perl_lib_dirs)
   call extend(perl_lib_dirs, a:perl_paths)
-  let inc_paths = s:uniq(map(perl_lib_dirs, 'simplify(root_path . "/" . v:val)'))
+  let inc_paths = map(perl_lib_dirs, 'simplify(root_path . "/" . v:val)')
   let original_paths = split(&path, ',')
   call extend(inc_paths, original_paths)
-  let path_str = join(inc_paths, ',')
-  execute "set path=".path_str
+  " clear path
+  execute "setlocal path<"
+  for path in inc_paths
+    execute "setlocal path+=".path
+  endfor
 endfunction
 
 let &cpo = s:save_cpo
