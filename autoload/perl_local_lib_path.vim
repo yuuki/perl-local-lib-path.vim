@@ -41,7 +41,7 @@ function! s:find_root_directory(current_dir, project_root_files)
   return s:find_root_directory(simplify(a:current_dir.'/../'), a:project_root_files)  " go up directory
 endfunction
 
-let s:archname = unite#util#system('perl -MConfig -e '."'".'print $Config{archname}'."'")
+let s:archname = system('perl -MConfig -e '.shellescape('print $Config{archname}'))
 let s:perl_project_root_files = ['.git', '.gitmodules', 'Makefile.PL', 'Build.PL']
 let s:perl_lib_dirs = ['lib', 'extlib', 'local/lib/perl5', 'local/lib/perl5/'.s:archname]
 
